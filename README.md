@@ -26,7 +26,8 @@ python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file
 sh inference.sh
 input parameters: -isGreedy: whether adopt greedy strategy (taking value 1) or expectation strategy (taking value 0)
 
-## You might encounter the situation where the project collapes when you change some of the hyperparameters due to the conflicts of parameter updates from parallel running. In that case, please set thread-num to be 1 and use single thread.
+## Potential Program Crashes
+You might encounter the situation where the project crashes when you change some of the hyperparameters due to the conflicts of parameter updates from parallel running. In that case, please set thread-num to be 1 and use single thread.
 
 For any question, feel free to contact jiweil@stanford.edu
 
