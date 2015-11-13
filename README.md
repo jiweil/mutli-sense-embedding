@@ -1,7 +1,5 @@
-# Do Multi-Sense Embeddings Improve Natural Language Understanding
-
+# Multi-sense learning algorithm using Chinese Restaurant Process
 Implementations of multi-sense learning algorithm using Chinese Restaurant Process in "Do Multi-Sense Embeddings Improve Natural Language Understanding" by Jiwei Li and Dan Jurafsky, EMNLP 2015
-
 
 ## Input Files
 train_file.txt: each line correponds to a sequence of indexed tokens.
@@ -27,6 +25,8 @@ python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file
 ## Inference, given learned sense-specific embeddings, calculate the context-based sense embeddings.
 sh inference.sh
 input parameters: -isGreedy: whether adopt greedy strategy (taking value 1) or expectation strategy (taking value 0)
+
+## You might encounter the situation where the project collapes when you change some of the hyperparameters due to the conflicts of parameter updates from parallel running. In that case, please set thread-num to be 1 and use single thread.
 
 For any question, feel free to contact jiweil@stanford.edu
 
