@@ -3,6 +3,7 @@ import java.util.Vector;
 import java.io.*;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,9 +26,9 @@ public class CRP_multi_sense{
     static double[][] vect_t;
     static ArrayList<vocab_word>vocab=new ArrayList<vocab_word>();//vocabulary
     static Random r = new Random();
-    static HashMap<Integer,HashMap<Integer,double[]>>sense_match=new HashMap<Integer,HashMap<Integer,double[]>>();
+    static ConcurrentHashMap<Integer,ConcurrentHashMap<Integer,double[]>>sense_match=new ConcurrentHashMap<Integer,ConcurrentHashMap<Integer,double[]>>();
     //sense sets for each token. each token is assocaited with a list of senses, each sense is assocaited with a embedding
-    static HashMap<Integer,HashMap<Integer,Integer>>cusomers_in_table=new HashMap<Integer,HashMap<Integer,Integer>>();
+    static ConcurrentHashMap<Integer,ConcurrentHashMap<Integer,Integer>>cusomers_in_table=new ConcurrentHashMap<Integer,ConcurrentHashMap<Integer,Integer>>();
     //Chinese restaurant process. each sense is assocaited with an integer indicating how many times words have been assigned
     static double gamma=0.1;// hyperparameter for Chinese restaurant process
     static String train_file="";
@@ -196,8 +197,8 @@ public class CRP_multi_sense{
                 int num_collected=0;
                 double[]context_v;
                 context_v=new double[dimension];
-                HashMap<Integer,double[]>sense_List=sense_match.get(word); //sense list for current token
-                HashMap<Integer,Integer>sense_table=cusomers_in_table.get(word);
+                ConcurrentHashMap<Integer,double[]>sense_List=sense_match.get(word); //sense list for current token
+                ConcurrentHashMap<Integer,Integer>sense_table=cusomers_in_table.get(word);
                 if(previous_sense_index!=-1000&&previous_sense_index!=-1)
                     sense_table.put(previous_sense_index,sense_table.get(previous_sense_index)-1);
 
@@ -379,8 +380,8 @@ public class CRP_multi_sense{
                 int num_collected=0;
                 double[]context_v;
                 context_v=new double[dimension];
-                HashMap<Integer,double[]>sense_List=sense_match.get(word); //sense list for current token
-                HashMap<Integer,Integer>sense_table=cusomers_in_table.get(word);
+                ConcurrentHashMap<Integer,double[]>sense_List=sense_match.get(word); //sense list for current token
+                ConcurrentHashMap<Integer,Integer>sense_table=cusomers_in_table.get(word);
                 ArrayList<Integer>Neighs=new ArrayList<Integer>();
                 for(int position=i-1;position>=i-half;position--){
                     if(position<0)break;
@@ -486,8 +487,8 @@ public class CRP_multi_sense{
         System.out.println("start saving");
         FileWriter fw=new FileWriter(filename+"_vect_sense");
         for(int i=0;i<vect.length;i++){
-            HashMap<Integer,double[]>match=sense_match.get(i);
-            HashMap<Integer,Integer>table=cusomers_in_table.get(i);
+            ConcurrentHashMap<Integer,double[]>match=sense_match.get(i);
+            ConcurrentHashMap<Integer,Integer>table=cusomers_in_table.get(i);
             int number_of_senses=-1;
             if(match.size()!=table.size()){
                 System.out.println("size not consistent");
@@ -502,8 +503,10 @@ public class CRP_multi_sense{
                 fw.write("word "+Integer.toString(i)+"\n");
                 int count=-1;
                 int total_num=0;
-                for(int index=0;index<number_of_senses;index++)
-                    total_num=total_num+table.get(index);
+                for(int index=0;index<number_of_senses;index++){
+                    if(table.get(index)!=null)
+                        total_num=total_num+table.get(index);
+                }
                 for(int index=0;index<number_of_senses;index++){
                     //ignore senses with less than occuring chance of 0.01
                     count++;
@@ -588,9 +591,9 @@ public class CRP_multi_sense{
             prob_word[i]=Double.parseDouble(dict[0]);
         }
         for(i=0;i<word_num;i++){
-            HashMap<Integer,double[]>t_1=new HashMap<Integer,double[]>();
+            ConcurrentHashMap<Integer,double[]>t_1=new ConcurrentHashMap<Integer,double[]>();
             sense_match.put(i,t_1);
-            HashMap<Integer,Integer>t_2=new HashMap<Integer,Integer>();
+            ConcurrentHashMap<Integer,Integer>t_2=new ConcurrentHashMap<Integer,Integer>();
             cusomers_in_table.put(i,t_2);
         }
     }
