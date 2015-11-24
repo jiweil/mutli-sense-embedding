@@ -1,6 +1,13 @@
 # Multi-sense learning algorithm using Chinese Restaurant Process
 Implementations of multi-sense learning algorithm using Chinese Restaurant Process in "Do Multi-Sense Embeddings Improve Natural Language Understanding" by Jiwei Li and Dan Jurafsky, EMNLP 2015
 
+##Folders
+pretrained_embedding: one can upload pretrained embeddings trained from different neural language models. The model will fix the pre-trained embeddings as global embeddings and learn multi-sense embeddings. You can also choose to pre-train a standard word2vect skip-gram models first using hierarchical softmax.
+
+joint_training: the model jointly learns multi-sense embeddings alongside with global embeddings. Negative sampling is applied.
+
+Inference, given learned sense-specific embeddings and global embeddings, calculate the context-based sense embeddings.
+
 ## Input Files
 train_file.txt: each line correponds to a sequence of indexed tokens.
 frequency.txt: word occuring probability for each token found in train_file.txt. The first line in frequency.txt corresponds to the occuring probability for word indexed by 0, the second line  to the occuring probability of word 1 and so forth
@@ -22,7 +29,6 @@ in directory Preprocessing, text.txt is a small sample of txt (a massively large
 python WordIndexNumDic.py vocabsize output_dictionary_file output_frequency_file output_index_file input_text_file, for example:
 python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file.txt text.txt
 
-## Inference, given learned sense-specific embeddings, calculate the context-based sense embeddings.
 sh inference.sh
 input parameters: -isGreedy: whether adopt greedy strategy (taking value 1) or expectation strategy (taking value 0)
 
