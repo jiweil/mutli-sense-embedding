@@ -1,5 +1,5 @@
 # Multi-sense learning algorithm using Chinese Restaurant Process
-Implementations of multi-sense learning algorithm using Chinese Restaurant Process in "Do Multi-Sense Embeddings Improve Natural Language Understanding" by Jiwei Li and Dan Jurafsky, EMNLP 2015
+Implementations of multi-sense learning algorithm using Chinese Restaurant Processes in "Do Multi-Sense Embeddings Improve Natural Language Understanding" by Jiwei Li and Dan Jurafsky, EMNLP 2015
 
 ##Folders
 pretrained_embedding: one can upload pretrained embeddings trained from different neural language models. The model will fix the pre-trained embeddings as global embeddings and learn multi-sense embeddings. You can also choose to pre-train a standard word2vect skip-gram models first using hierarchical softmax.
