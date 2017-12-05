@@ -40,6 +40,8 @@ for example
 python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file.txt text.txt
 ```
 
+## Inference 
+
 `sh inference.sh`
 
 input parameters: `-isGreedy`: whether adopt greedy strategy (taking value 1) or expectation strategy (taking value 0)
