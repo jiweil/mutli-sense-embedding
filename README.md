@@ -28,9 +28,17 @@ if `load_embedding` takes value of 0, the code ouputs the calculated global embe
 * `<file_name>_vect_global`: each line corresponds to the learned embedding for an indexed word, e.g., the first line corresponds to embedding for word indexed by 0, second line to word 1, and so forth.
 
 ## Preprocessing
-in directory Preprocessing, `text.txt` is a small sample of txt (a massively larger dataset is needed to train meaningful representations). Run
-`python WordIndexNumDic.py vocabsize output_dictionary_file output_frequency_file output_index_file input_text_file`, for example
-`python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file.txt text.txt`
+in directory Preprocessing, `text.txt` is a small sample of txt (a massively larger dataset is needed to train meaningful representations). 
+
+Run
+
+```
+python WordIndexNumDic.py vocabsize output_dictionary_file output_frequency_file output_index_file input_text_file
+``` 
+for example
+```
+python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file.txt text.txt
+```
 
 `sh inference.sh`
 
