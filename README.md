@@ -51,7 +51,7 @@ python WordIndexNumDic.py 20000 ../dictionary.txt ../frequency.txt ../train_file
 ## Potential Program Crashes
 You might encounter the situation where the project crashes when you change some of the hyperparameters due to the conflicts of parameter updates from parallel running. In that case, please set thread-num to be 1 and use single thread.
 
-## Contact and citations 
+## Contact and citation
 
 For any question, feel free to contact jiweil@stanford.edu 
 
