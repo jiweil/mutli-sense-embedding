@@ -29,7 +29,7 @@ if `load_embedding` takes value of 0, the code ouputs the calculated global embe
 
 * `<file_name>_vect_global`: each line corresponds to the learned embedding for an indexed word, e.g., the first line corresponds to embedding for word indexed by 0, second line to word 1, and so forth.
 
-## Inference 
+### Inference 
 
 `sh inference.sh` 
 
